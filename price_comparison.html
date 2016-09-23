@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hermann Test</title>
+
+	<link rel="stylesheet" href="price_comparison/awesomplete.css" /> 
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="price_comparison/comparison.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body id="page" class="page_electronic">
+	<header>
+		<div id="change_language"><a href="#" style="color: white;">Wechsle auf die deutsche Version <img style="padding-left: 5px;" src="https://rentog.com/wp-content/uploads/2016/01/Germany-24x24.png"></a></div>
+	</header>
+
+	<div id="headline_wrapper">
+		<h1>Price comparison tool for test and measurement devices</h1>
+		<h3 id="teaser">We have collected 500.000 prices for more than 200.000 different devices.</h3>
+		<h4 id="short_desc">Simply enter the device, model or category you are looking for to search through our database.</h4>
+	</div>
+	<div id="input_wrapper">
+		<div id="input_label">Start typing for choosing a measurement device</div>
+		<input id="myinput" placeholder="Manufacturer, model or category" class="awesomplete2" />
+
+		<div id="help_wrapper">
+			<a href="#"><b>Need help?</b> Click here...</a>
+		</div>
+
+		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Get prices for device</button>
+
+		<div id="input_label2">Enter your email address so that we can send you the prices</div>
+		<input id="emailAddr" placeholder="jon@doe.com" type="email" name="email">
+		<div id="terms"><label><input type="checkbox"/> I agree that Rentog can send me emails. (<a href="https://rentog.com/terms" target="_blank">Read more...</a>)</label></div>
+		<button id="back" class="btn btn-default">&lt;</button>
+		<button id="submitRequest" class="btn btn-danger" type="submit" disabled="disabled">Get prices</button>
+		<div id="success_message">Your request has been successful. You will get an email soon!</div>
+		<button id="new_request" class="btn btn-default">New request</button>
+	</div>
+
+	<footer>
+		<div id="cookie_notification">
+			<p>We use cookies to improve the user experience. <a href="https://rentog.com/privacy" target="_blank">Read more...</a></p>
+		</div>
+		<div id="poweredbyrentog">
+			<a href="https://rentog.com"><p><span style="vertical-align: bottom; padding-right: 5px;">This tool is powered by </span> <img src="https://rentog.com/wp-content/uploads/2016/01/Logo_transparent_white.png" height="30px"/></p></a>
+		</div>
+	</footer>
+
+
+	<script src="price_comparison/awesomplete.min.js" async></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="price_comparison/devices.js"></script>
+	<script type="text/javascript" src="price_comparison/logic.js"></script>
+	<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async></script>-->
+
+</body>
+</html>

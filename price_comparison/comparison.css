@@ -1,0 +1,254 @@
+h1, h2, h3, h4, footer p, label{
+	color: white;
+}
+#headline_wrapper{
+	text-align: center;
+    margin-top: 10%;
+    margin-left: 5%;
+    width: 90%;
+}
+
+#myinput{
+    font-size: 1.2em;
+    padding: 5px 15px;
+    font-weight: bold;
+    width: 100%;
+}
+
+#getPrices{
+	width: 40%;
+	min-width: 200px;
+	margin-left: 30%;
+	margin-top: 80px;
+	font-size: 1.3em;
+	height: 45px;
+	box-shadow: 0 0 10px white;
+	display: none;
+}
+
+.awesomplete{
+	width: 100%;
+	box-shadow: 0 0 25px black; 
+}
+
+.awesomplete ul{
+	max-height: 350px;
+	overflow-y: scroll;
+}
+
+#input_wrapper{
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 100px;
+    background-color: rgba(35, 35, 35, 0.46);
+    border-radius: 15px;
+    box-shadow: 0 0 40px;
+    padding: 15px 30px;
+    height: 250px;
+}
+.page_electronic{
+	background-image: url("bg_large.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: black;
+}
+.page_electric{
+	background-image: url("bg3.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: black;	
+}
+
+@media (max-width: 1000px) {
+	.page_electronic{
+		background-size: inherit;
+		background-color: white;
+	}
+	.page_electric{
+		background-color: white;
+		background-size: inherit;
+	}
+}
+
+#input_label{
+	color: white;
+	font-size: 1.2em;
+	padding: 5px;
+}
+
+#input_label2{
+	display: none;
+	color: white;
+	font-size: 1.2em;
+	padding: 5px;
+}
+#emailAddr{
+	display: none;
+	font-size: 1.2em;
+    padding: 5px 15px;
+    font-weight: bold;
+    width: 100%;
+}
+#submitRequest{
+	display: none;
+	width: 40%;
+	margin-left: 20%;
+    margin-top: 20px;
+	font-size: 1.3em;
+	height: 45px;
+	box-shadow: 0 0 10px white;
+}
+#back{
+	display: none;
+	width: 10%;
+    margin-top: 30px;
+    margin-left: 0px;
+    background-color: rgba(130, 130, 130, 0.53);
+    color: white;
+    float: left;
+}
+#success_message{
+	display: none;
+	font-size: 1.7em;
+    color: #9df9a0;
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+#new_request{
+	display: none;
+	width: 40%;
+    margin-top: 30px;
+    margin-left: 30%;
+    background-color: rgba(130, 130, 130, 0.53);
+    color: white;
+}
+#help_wrapper{
+	text-align: center;
+    margin-top: 100px;
+    width: 100%;
+    font-size: 1.1em;
+}
+#help_wrapper a{
+	color: white;
+}
+
+footer{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 46px;
+}
+#cookie_notification{
+	text-align: center;
+}
+#cookie_notification p{
+	padding: 4px 10px;
+    background-color: rgba(0, 0, 0, 0.63);
+    width: 30%;
+    margin-left: 35%;
+    border-radius: 25px;
+}
+
+#poweredbyrentog{
+	position: absolute;
+	right: 20px;
+	height: 46px;
+	bottom: 0px;
+}
+footer a:hover {
+	text-decoration: none;
+}
+
+#poweredbyrentog p{
+	background-color: rgba(130, 1, 11, 0.75);
+    padding: 6px 15px 10px 15px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0px;
+}
+
+#change_language{
+	text-align: right;
+    padding-right: 20px;
+    padding-top: 5px;
+}
+
+#terms{
+	display: none;
+	margin-top: 10px;
+}
+
+@media (max-width: 992px) {
+	.page_electronic{
+		background-size: inherit;
+		background-color: white;
+	}
+	.page_electric{
+		background-color: white;
+		background-size: inherit;
+	}
+	#short_desc{
+		display: none;
+	}
+	#teaser{
+		display: none;
+	}
+	footer{
+		position: relative;
+	}
+
+	#cookie_notification p{
+		width: 100%;
+		margin-left: 0px;
+		border-radius: 0px;
+		margin-top: 50px;
+		margin-bottom: 0px;
+	}
+
+	#poweredbyrentog{
+		position: relative;
+		right: 0px;
+	}
+	#poweredbyrentog p{
+		border-radius: 0px;
+		text-align: center;
+	}
+
+	#input_wrapper{
+		width: 96%;
+    	margin-left: 2%;
+    	margin-top: 50px;
+    	padding: 15px 10px;
+	}
+
+	#input_label{
+		font-size: 0.85em;
+	}
+	#input_label2{
+		font-size: 0.85em;
+	}
+
+	#getPrices{
+		width: 80%;
+    	margin-left: 10%;
+    	margin-top: 40px;
+	}
+	#back{
+		width: 15%;
+	    height: 45px;
+	    margin-top: 20px;
+	}
+
+	#submitRequest{
+		width: 80%;
+    	margin-left: 5%;
+	}
+
+	#help_wrapper{
+		margin-top: 60px;
+	}
+	#success_message{
+		margin-top: 10px;
+	}
+}
