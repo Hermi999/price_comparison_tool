@@ -10,6 +10,8 @@ var btn_back = $("#back");
 var success_message = $("#success_message");
 var new_request = $("#new_request");
 var terms = $("#terms");
+var old_input = "";
+var new_list = [];
 
 function createCookie(name,value,days) {
     if (days) {
@@ -81,8 +83,8 @@ var cookie = function(){
 
 
 var inputReference = document.getElementById("myinput");
-new Awesomplete(inputReference, {
-	minChars: 3,
+var awesome = new Awesomplete(inputReference, {
+	minChars: 2,
 	maxItems: 200,
 	autoFirst: true,
 	list: device_arr
@@ -100,32 +102,64 @@ input_field.keyup(function(){
 });
 
 function input_field_change(){
-	var arr = device_arr
-	var BreakException = {};
+	// if textfield value changed
+	if (old_input !== input_field.val()){
+		old_input = input_field.val();
 
-	if (input_field.val() !== ""){
-		try{
-			// disable button
-			btn.prop('disabled', true);
+		// contact server if input is 1, 2 or 3 letters
+		if(input_field.val().length > 0 && input_field.val().length < 4){
+			var jqxhr = $.get( "http://lvh.me:3000/price_comparison_devices", 
+				{
+					"search_term": input_field.val()
+				},
+				function(data) {
+				  console.log(data);
 
-			arr.forEach(function(el){
-				if(el.trim() == input_field.val().trim()){
-					throw BreakException;
-				}
+				  // store response from server
+				  device_arr = data["devices"];
+				  awesome._list = data["devices"];
+				  awesome.evaluate();
+				})
+				  .done(function() {
+				    //console.log( "second success" );
+				  })
+				  .fail(function() {
+				    //console.log( "error" );
+				  })
+				  .always(function() {
 			});
-			input_field.css("backgroundColor", red);
-			$("#help_wrapper").css("display", "block");
-		}catch(e){
-			if (e !== BreakException) throw e;
-			// enable button and mark input green		
-			btn.prop('disabled', false);
-			btn.css("display", "block");
-			input_field.css("backgroundColor", green);
-			$("#help_wrapper").css("display", "none");
 		}
-	}else{
-		btn.prop('disabled', true);		
-		input_field.css("backgroundColor", "white");
+
+
+		// check if text in textfield matches a valid dataset
+		var BreakException = {};
+
+		if (input_field.val() !== ""){
+			try{
+				// disable button
+				btn.prop('disabled', true);
+
+				device_arr.forEach(function(el){
+					if(el.trim() == input_field.val().trim()){
+						throw BreakException;
+					}
+				});
+				input_field.css("backgroundColor", red);
+				$("#help_wrapper").css("display", "block");
+				awesome.evaluate();
+			}catch(e){
+				if (e !== BreakException) throw e;
+				// enable button and mark input green		
+				btn.prop('disabled', false);
+				btn.css("display", "block");
+				input_field.css("backgroundColor", green);
+				$("#help_wrapper").css("display", "none");
+			}
+		}else{
+			btn.prop('disabled', true);		
+			input_field.css("backgroundColor", "white");
+			awesome.evaluate();
+		}
 	}
 }
 
