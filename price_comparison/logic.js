@@ -1,17 +1,24 @@
 var green = "rgb(138, 216, 142)";
 var red = "rgb(236, 143, 136)";
+var input_wrapper = $('#input_wrapper');
+var get_more_results = $("#get_more_results_wrapper");
 var input_field = $("#myinput");
 var input_email = $("#emailAddr");
 var input_label = $("#input_label");
 var input_label2 = $("#input_label2");
+var results = $("#results");
 var btn = $("#getPrices");
 var btn2 = $("#submitRequest");
 var btn_back = $("#back");
+var btn_back2 = $("#back2");
 var success_message = $("#success_message");
 var new_request = $("#new_request");
 var terms = $("#terms");
 var old_input = "";
 var new_list = [];
+var accessCode = $('#accessCode');
+var accessCode2 = $('#accessCode2');
+var displaySeller = false;
 
 function createCookie(name,value,days) {
     if (days) {
@@ -168,26 +175,53 @@ btn.click(function(){
 	input_field.fadeOut();
 	input_label.fadeOut();
 	btn.fadeOut();
-	input_email.delay(500).fadeIn();
-	terms.delay(500).fadeIn();
-	input_label2.delay(500).fadeIn();
-	btn2.delay(500).fadeIn();
-	btn_back.delay(500).fadeIn();
+	input_wrapper.animate({
+		marginLeft: "10%",
+		width: "80%"
+	}, 400);
+	results.delay(500).fadeIn();
+	
+	if(readCookie("price_comparison_accesscode") === "valid"){
+		displaySeller = true;
+		get_more_results.hide();
+		btn_back2.delay(500).fadeIn();
+	}else{
+		get_more_results.delay(500).fadeIn();
+		btn_back2.fadeOut();
+	}
 
-	setTimeout(function(){
-	  input_email.focus();
-	},600);
 
 	var jqxhr = $.post( "http://lvh.me:3000/price_comparison_events", 
 		{
 			"price_comparison_params": {
 				"action_type":"device_chosen", 
 				"device_name": input_field.val(), 
-				"sessionId":"asdfb",
+				"sessionId":readCookie("price_comparison_session_id"),
 			}
 		},
 		function(data) {
-		  console.log(data);
+			console.log(data);
+		  var amountOfDevices = data.result.length;
+
+		  $('#count_results').text("We found " + amountOfDevices + " device(s) for your request.");
+
+		  $('#result_table_body').empty();
+
+		  for(var j=0; j<amountOfDevices; j++){
+		  	var seller_html = "<td class='seller_field'>Enter access code ...</td>";
+		  	if(displaySeller){
+		  		seller_html = "<td><a href='" + data.result[j].link + "' target='_blank'>" + data.result[j].seller + "</a></td>";
+		  	}
+		  	$('#result_table_body').append($("<tr class='device' />")
+		  							 						.append("<td>" + data.result[j].model + "</td>")
+		  							 						.append("<td>" + data.result[j].manufacturer + "</td>")
+		  							 						.append("<td>" + data.result[j].price + " " + data.result[j].currency + "</td>")
+		  							 						.append("<td>" + data.result[j].country + "</td>")
+		  							 						.append("<td>" + data.result[j].condition + "</td>")
+		  							 						.append("<td>" + data.result[j].dev_type + "</td>")
+		  							 						.append(seller_html)
+		  							 					 );
+		  }
 		})
 		  .done(function() {
 		    //console.log( "second success" );
@@ -202,6 +236,23 @@ btn.click(function(){
 
 // Send email button click
 btn2.click(function(){
+	if(accessCode.css("opacity") === "1"){
+		btn2_accesCode_handler();
+	}else{
+		btn2_email_handler();
+	}
+});
+
+function btn2_accesCode_handler(){
+	if(accessCode.val() === "134679"){
+		createCookie("price_comparison_accesscode", "valid", 999);
+		btn.click();
+	}else{
+		accessCode.css("backgroundColor", red);
+	}
+}
+
+function btn2_email_handler(){
 	// store email in cookie
 	if(!readCookie("price_comparison_email")){
 		createCookie("price_comparison_email", input_email.val(), 999);
@@ -214,24 +265,17 @@ btn2.click(function(){
 				"action_type":"device_request", 
 				"email": input_email.val(), 
 				"device_name": input_field.val(), 
-				"sessionId":"asdfb",
+				"sessionId":readCookie("price_comparison_session_id"),
 			}
 		},
 		function(data) {
 		  console.log(data);
+
+		  $('#enter_access_code_window').fadeIn();
+		  accessCode2.focus();
 		})
 		  .done(function() {
-		    input_email.fadeOut();
-				input_label2.fadeOut();
-				btn2.fadeOut();
-				terms.fadeOut();
-				btn_back.fadeOut();
-				success_message.delay(500).fadeIn();
-				new_request.delay(500).fadeIn();
-
-				setTimeout(function(){
-				  new_request.focus();
-				},600);
+		  	//
 		  })
 		  .fail(function() {
 		    //console.log( "error" );
@@ -239,22 +283,41 @@ btn2.click(function(){
 		  .always(function() {
 		    //console.log( "finished" );
 		});
+}
+
+// Submit Accesscode via popover
+$("#validate_access_code").click(function(){
+	if(accessCode2.val() === "134679"){
+		createCookie("price_comparison_accesscode", "valid", 999);
+		$('#enter_access_code_window').fadeOut();
+
+		setTimeout(function(){
+		  btn.click();
+		},600);
+	}else{
+		accessCode2.css("backgroundColor", red);
+	}
 });
 
 // Return button click
-btn_back.click(function(){
-	input_email.fadeOut();
-	input_label2.fadeOut();
-	btn2.fadeOut();
-	terms.fadeOut();
-	btn_back.fadeOut();
+btn_back.click(back_func);
+btn_back2.click(back_func);
+
+function back_func(){
+	results.fadeOut();
+	get_more_results.fadeOut();
+	input_wrapper.delay(250).animate({
+		marginLeft: "30%",
+		width: "40%"
+	}, 400);
 	input_field.delay(500).fadeIn();
 	input_label.delay(500).fadeIn();
+	btn_back2.fadeOut();
 	btn.delay(500).fadeIn();
 	setTimeout(function(){
 	  input_field.focus();
 	},600);
-});
+}
 
 // New request button click
 new_request.click(function(){
@@ -270,16 +333,40 @@ new_request.click(function(){
 	},600);
 });
 
+// visally help user with email or access code
+input_email.focus(function(){
+	accessCode.css("opacity", 0.4);
+	input_email.css("opacity", 1);
+	terms.css("opacity", 1);
+	emailCheckboxHandler();
+});
+accessCode.focus(function(){
+	input_email.css("opacity", 0.4);
+	terms.css("opacity", 0.4);
+	accessCode.css("opacity", 1);
+	btn2.prop("disabled", true);
+	accessCodeCheckboxHandler();
+});
+
 // Validate email
 input_email.keyup(emailCheckboxHandler);
 input_email.focusout(emailCheckboxHandler);
 input_email.change(emailCheckboxHandler);
 
+// Validate code
+accessCode.keyup(accessCodeCheckboxHandler);
+accessCode.focusout(accessCodeCheckboxHandler);
+accessCode.change(accessCodeCheckboxHandler);
+
 // Validate terms
 $("#terms input").click(emailCheckboxHandler);
 
 function emailCheckboxHandler(){
-	if(isEmail(input_email.val())){
+	if(input_email.val() === ""){
+		input_email.css("backgroundColor", "white");
+		btn2.prop("disabled", true);
+	}
+	else if(isEmail(input_email.val()) && input_email.css("opacity") === "1"){
 		input_email.css("backgroundColor", green);
 
 		if($("#terms input").prop("checked") === true){
@@ -293,5 +380,18 @@ function emailCheckboxHandler(){
 	}
 }
 
+function accessCodeCheckboxHandler(){
+	if(accessCode.val() === ""){
+		btn2.prop("disabled", true);
+	}else{
+		btn2.prop("disabled", false);
+	}
+}
+
+$('#exit_x').click(function(){
+	$('#enter_access_code_window').fadeOut();
+});
+
 // Focus text field
+input_field.val("");
 input_field.focus();

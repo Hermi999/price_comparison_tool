@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hermann Test</title>
+	<title>Price comparison tool</title>
 
 	<link rel="stylesheet" href="price_comparison/awesomplete.css" /> 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -21,22 +21,62 @@
 		<h4 id="short_desc">Simply enter the device, model or category you are looking for to search through our database.</h4>
 	</div>
 	<div id="input_wrapper">
+
+		<!-- PAGE 1 -->
 		<div id="input_label">Start typing for choosing a measurement device</div>
 		<input id="myinput" placeholder="Manufacturer, model or category" class="awesomplete2" />
-
 		<div id="help_wrapper">
 			<a href="#"><b>Need help?</b> Click here...</a>
 		</div>
-
 		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Get prices for device</button>
 
-		<div id="input_label2">Enter your email address so that we can send you the prices</div>
-		<input id="emailAddr" placeholder="jon@doe.com" type="email" name="email">
-		<div id="terms"><label><input type="checkbox"/> I agree that Rentog can send me emails. (<a href="https://rentog.com/terms" target="_blank">Read more...</a>)</label></div>
-		<button id="back" class="btn btn-default">&lt;</button>
-		<button id="submitRequest" class="btn btn-danger" type="submit" disabled="disabled">Get prices</button>
-		<div id="success_message">Your request has been successful. You will get an email soon!</div>
-		<button id="new_request" class="btn btn-default">New request</button>
+
+		<!-- PAGE 2 -->
+		<div id="results">
+			<div id="count_results"></div>
+			<div id="results_data">
+				<table id="result_table">
+					<thead style="border-bottom: 1px solid white;">
+						<tr>
+							<th>Model</th>
+							<th>Manufacturer</th>
+							<th>Price</th>
+							<th>Country</th>
+							<th>Condition</th>
+							<th>Type</th>
+							<th>Seller</th>
+						</tr>
+					</thead>
+					<tbody id="result_table_body">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<button id="back2" class="btn btn-default">&lt;</button>
+
+		<div id="get_more_results_wrapper">
+			<div id="get_more_results">
+				<div id="input_label2">Enter your access code. If you have none, simply enter your email address so that we can send you one.</div>
+				<input id="emailAddr" placeholder="jon@doe.com" type="email" name="email">
+				<input id="accessCode" tabindex="-1" placeholder="Enter access code..." type="text" name="accessCode">
+				<div id="terms"><label><input type="checkbox"/> I agree to the <a href="https://rentog.com/terms" tabindex="-1" style="color: #ff9800;" target="_blank">terms</a></label></div>
+				<button id="back" class="btn btn-default" tabindex="-1">&lt;</button>
+				<button id="submitRequest" class="btn btn-danger" type="submit" disabled="disabled">Get prices</button>
+			</div>
+		</div>
+		
+
+		<!-- POPUP PAGE -->
+		<div id="enter_access_code_window">
+			<p id="exit_x">x</p>
+			<div id="access_code_input_window">
+				<div id="success_message">Your request has been successful. You will get an email soon!</div>
+				<input id="accessCode2" placeholder="Enter access code..." type="text" name="accessCode">
+				<button id="validate_access_code" class="btn btn-default">Submit</button>
+			</div>
+		</div>
 	</div>
 
 	<footer>
