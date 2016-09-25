@@ -269,9 +269,7 @@ function btn2_email_handler(){
 			}
 		},
 		function(data) {
-		  console.log(data);
-
-		  $('#enter_access_code_window').fadeIn();
+			$('#enter_access_code_window').fadeIn();
 		  accessCode2.focus();
 		})
 		  .done(function() {
@@ -281,7 +279,6 @@ function btn2_email_handler(){
 		    //console.log( "error" );
 		  })
 		  .always(function() {
-		    //console.log( "finished" );
 		});
 }
 
