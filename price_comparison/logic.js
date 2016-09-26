@@ -19,6 +19,26 @@ var new_list = [];
 var accessCode = $('#accessCode');
 var accessCode2 = $('#accessCode2');
 var displaySeller = false;
+var serverURI = "https://tools.rentog.com/";
+var text = [];
+
+function getServerURI(){
+	if(window.location.href.includes("home")){
+		// Development
+		serverURI = "http://lvh.me:3000/";
+	}
+
+	if(window.location.href.includes("/de") || window.location.href.includes("_de")){
+		text[0] = "Wir haben ";
+		text[1] = " Gerät(e) in unserer Datenbank gefunden.";
+		text[2] = "Zugriffscode eingeben ...";
+	}else{
+		text[0] = "We found ";
+		text[1] = " device(s) for your request.";
+		text[2] = "Enter access code ...";
+	}
+}
+getServerURI();
 
 function createCookie(name,value,days) {
     if (days) {
@@ -73,7 +93,7 @@ function makeid(){
 
 function changeBackgroundImage(){
 	if(getUrlParameter("electronic")){
-		$('#page').css("backgroundImage", 'url("price_comparison/bg3.jpg")');
+		$('#page').css("backgroundImage", 'url("/price_comparison/bg3.jpg")');
 	}
 }
 changeBackgroundImage();
@@ -115,7 +135,7 @@ function input_field_change(){
 
 		// contact server if input is 1, 2 or 3 letters
 		if(input_field.val().length > 0 && input_field.val().length < 4){
-			var jqxhr = $.get( "http://lvh.me:3000/price_comparison_devices", 
+			var jqxhr = $.get( serverURI + "price_comparison_devices", 
 				{
 					"search_term": input_field.val()
 				},
@@ -191,7 +211,7 @@ btn.click(function(){
 	}
 
 
-	var jqxhr = $.post( "http://lvh.me:3000/price_comparison_events", 
+	var jqxhr = $.post( serverURI + "price_comparison_events", 
 		{
 			"price_comparison_params": {
 				"action_type":"device_chosen", 
@@ -203,12 +223,12 @@ btn.click(function(){
 			console.log(data);
 		  var amountOfDevices = data.result.length;
 
-		  $('#count_results').text("We found " + amountOfDevices + " device(s) for your request.");
+		  $('#count_results').text(text[0] + amountOfDevices + text[1]);
 
 		  $('#result_table_body').empty();
 
 		  for(var j=0; j<amountOfDevices; j++){
-		  	var seller_html = "<td class='seller_field'>Enter access code ...</td>";
+		  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
 		  	if(displaySeller){
 		  		seller_html = "<td><a href='" + data.result[j].link + "' target='_blank'>" + data.result[j].seller + "</a></td>";
 		  	}
@@ -259,7 +279,7 @@ function btn2_email_handler(){
 	}
 
 	// send request to server
-	var jqxhr = $.post( "http://lvh.me:3000/price_comparison_events", 
+	var jqxhr = $.post( serverURI + "price_comparison_events", 
 		{
 			"price_comparison_params": {
 				"action_type":"device_request", 
