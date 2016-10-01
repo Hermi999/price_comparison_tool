@@ -27,9 +27,9 @@
 
 		<!-- PAGE 1 -->
 		<div id="input_label">Tippen Sie einfach die ersten Buchstaben ihres Geräts ein</div>
-		<input id="myinput" placeholder="Manufacturer, model or category" class="awesomplete2" />
+		<input id="myinput" placeholder="Hersteller oder Modell" class="awesomplete2" />
 		<div id="help_wrapper">
-			<a href="#"><b>Sie benötigen Hilfe?</b> Klicken Sie hier...</a>
+			<a href="https://rentog.com/de/blog/compare-prices-test-and-measurement-equipment/"><b>Sie benötigen Hilfe?</b> Klicken Sie hier...</a>
 		</div>
 		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Zeige Preise</button>
 
@@ -46,7 +46,6 @@
 							<th>Preis</th>
 							<th>Land</th>
 							<th>Zustand</th>
-							<th>Typ</th>
 							<th>Verkäufer / Link</th>
 						</tr>
 					</thead>
@@ -61,9 +60,10 @@
 
 		<div id="get_more_results_wrapper">
 			<div id="get_more_results">
-				<div id="input_label2">Geben Sie Ihren Zugriffscode ein. Wenn Sie noch keinen haben, geben Sie einfach Ihre E-Mail Adresse an und wir senden Ihnen einen Code zu.</div>
+				<div id="input_label2">Geben Sie Ihre E-Mail Adresse an um die Verkäufer anzuzeigen. <span style="color: rgba(255, 255, 255, 0.5);"><br>Alternativ können Sie auch Ihren Zugriffscode angeben.</span></div>
 				<input id="emailAddr" placeholder="jon@doe.com" type="email" name="email">
-				<input id="accessCode" tabindex="-1" placeholder="Enter access code..." type="text" name="accessCode">
+				<p id="or">ODER</p>
+				<input id="accessCode" tabindex="-1" style="width: 36%" placeholder="Zugriffscode..." type="text" name="accessCode">
 				<div id="terms"><label><input type="checkbox"/> Ich stimme den <a href="https://rentog.com/de/terms" tabindex="-1" style="color: #ff9800;" target="_blank">AGB</a> zu</label></div>
 				<button id="back" class="btn btn-default" tabindex="-1">&lt;</button>
 				<button id="submitRequest" class="btn btn-danger" type="submit" disabled="disabled">Zeige Verkäufer</button>

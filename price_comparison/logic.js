@@ -32,10 +32,12 @@ function getServerURI(){
 		text[0] = "Wir haben ";
 		text[1] = " Gerät(e) in unserer Datenbank gefunden.";
 		text[2] = "Zugriffscode eingeben ...";
+		teaser_text_electronic = "Wir haben die Preise von Marken wie Megger, Omicron und FLIR."
 	}else{
 		text[0] = "We found ";
 		text[1] = " device(s) for your request.";
 		text[2] = "Enter access code ...";
+		teaser_text_electronic = "We have the prices from your favourite brands like Megger, Omicron and FLIR."
 	}
 }
 getServerURI();
@@ -92,8 +94,9 @@ function makeid(){
 }
 
 function changeBackgroundImage(){
-	if(getUrlParameter("electronic")){
+	if(getUrlParameter("energy")){
 		$('#page').css("backgroundImage", 'url("/price_comparison/bg3.jpg")');
+		$('#teaser').text(teaser_text_electronic);
 	}
 }
 changeBackgroundImage();
@@ -129,12 +132,15 @@ input_field.keyup(function(){
 });
 
 function input_field_change(){
+	var old_input_length = old_input.length;
+	var new_input_length = input_field.val().length;
+
 	// if textfield value changed
 	if (old_input !== input_field.val()){
 		old_input = input_field.val();
 
 		// contact server if input is 1, 2 or 3 letters
-		if(input_field.val().length > 0 && input_field.val().length < 4){
+		if((input_field.val().length > 0 && input_field.val().length < 4) || (old_input_length+1 < new_input_length)){
 			var jqxhr = $.get( serverURI + "price_comparison_devices", 
 				{
 					"search_term": input_field.val()
@@ -230,18 +236,48 @@ btn.click(function(){
 		  for(var j=0; j<amountOfDevices; j++){
 		  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
 		  	if(displaySeller){
-		  		seller_html = "<td><a href='" + data.result[j].link + "' target='_blank'>" + data.result[j].seller + "</a></td>";
+		  		seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + data.result[j].seller + "</a></td>";
+		  	}
+		  	var price = "<td>" + data.result[j].price + " " + data.result[j].currency + "</td>";
+		  	if(data.result[j].renting_price_period){
+		  		price = "<td>" + data.result[j].price + " " + data.result[j].currency + " / " + data.result[j].renting_price_period + "</td>";
 		  	}
 		  	$('#result_table_body').append($("<tr class='device' />")
 		  							 						.append("<td>" + data.result[j].model + "</td>")
 		  							 						.append("<td>" + data.result[j].manufacturer + "</td>")
-		  							 						.append("<td>" + data.result[j].price + " " + data.result[j].currency + "</td>")
+		  							 						.append(price)
 		  							 						.append("<td>" + data.result[j].country + "</td>")
 		  							 						.append("<td>" + data.result[j].condition + "</td>")
-		  							 						.append("<td>" + data.result[j].dev_type + "</td>")
 		  							 						.append(seller_html)
 		  							 					 );
 		  }
+
+		  $('.seller_link').click(function(ev){
+				// send request to server
+				console.log(ev);
+				var jqxhr = $.post( serverURI + "price_comparison_events", 
+					{
+						"price_comparison_params": {
+							"action_type":"lead_generated", 
+							"email": readCookie("price_comparison_email"), 
+							"device_name": input_field.val(), 
+							"seller": ev.currentTarget.text,
+							"seller_link": ev.currentTarget.href,
+							"sessionId":readCookie("price_comparison_session_id"),
+						}
+					},
+					function(data) {
+						console.log(data);
+					})
+					  .done(function() {
+					  	//
+					  })
+					  .fail(function() {
+					    //console.log( "error" );
+					  })
+					  .always(function() {
+					});	
+			});
 		})
 		  .done(function() {
 		    //console.log( "second success" );
@@ -262,6 +298,7 @@ btn2.click(function(){
 		btn2_email_handler();
 	}
 });
+
 
 function btn2_accesCode_handler(){
 	if(accessCode.val() === "134679"){
