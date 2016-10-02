@@ -236,7 +236,11 @@ btn.click(function(){
 		  for(var j=0; j<amountOfDevices; j++){
 		  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
 		  	if(displaySeller){
-		  		seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + data.result[j].seller + "</a></td>";
+		  		var seller = "Link"
+		  		if(data.result[j].seller){
+		  			seller = data.result[j].seller;
+		  		}
+		  		seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + seller + "</a></td>";
 		  	}
 		  	var price = "<td>" + data.result[j].price + " " + data.result[j].currency + "</td>";
 		  	if(data.result[j].renting_price_period){
