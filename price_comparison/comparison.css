@@ -16,6 +16,10 @@ td a:hover{
   color: #decf5a;
 }
 
+#result_table_body tr{
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.28);
+}
+
 #beta{
   background-color: rgba(233, 30, 99, 0.6);
   font-weight: bold;

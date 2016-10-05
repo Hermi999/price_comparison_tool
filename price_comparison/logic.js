@@ -18,7 +18,7 @@ var old_input = "";
 var new_list = [];
 var accessCode = $('#accessCode');
 var accessCode2 = $('#accessCode2');
-var displaySeller = false;
+var displaySeller = true;
 var serverURI = "https://tools.rentog.com/";
 var text = [];
 
@@ -128,10 +128,11 @@ function isEmail(email) {
 // Input field change
 document.addEventListener('awesomplete-selectcomplete', input_field_change);
 input_field.keyup(function(){
-	input_field_change();	
+	input_field_change(true);	
 });
 
-function input_field_change(){
+function input_field_change(none_awesomplete_event){
+	awesomplete_event = none_awesomplete_event || false;
 	var old_input_length = old_input.length;
 	var new_input_length = input_field.val().length;
 
@@ -140,7 +141,7 @@ function input_field_change(){
 		old_input = input_field.val();
 
 		// contact server if input is 1, 2 or 3 letters
-		if((input_field.val().length > 0 && input_field.val().length < 4) || (old_input_length+1 < new_input_length)){
+		if( none_awesomplete_event === true && ((input_field.val().length > 0 && input_field.val().length < 4) || (old_input_length+1 < new_input_length))){
 			var jqxhr = $.get( serverURI + "price_comparison_devices", 
 				{
 					"search_term": input_field.val()
@@ -198,15 +199,19 @@ function input_field_change(){
 
 // Get prices button click
 btn.click(function(){
+	$('#result_table_body').empty();
 	input_field.fadeOut();
 	input_label.fadeOut();
+	$('.awesomplete').fadeOut();
 	btn.fadeOut();
 	input_wrapper.animate({
 		marginLeft: "10%",
 		width: "80%"
 	}, 400);
 	results.delay(500).fadeIn();
+	btn_back2.delay(500).fadeIn();
 	
+	/*
 	if(readCookie("price_comparison_accesscode") === "valid"){
 		displaySeller = true;
 		get_more_results.hide();
@@ -214,7 +219,7 @@ btn.click(function(){
 	}else{
 		get_more_results.delay(500).fadeIn();
 		btn_back2.fadeOut();
-	}
+	}*/
 
 
 	var jqxhr = $.post( serverURI + "price_comparison_events", 
@@ -231,16 +236,22 @@ btn.click(function(){
 
 		  $('#count_results').text(text[0] + amountOfDevices + text[1]);
 
-		  $('#result_table_body').empty();
-
 		  for(var j=0; j<amountOfDevices; j++){
 		  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
 		  	if(displaySeller){
 		  		var seller = "Link"
 		  		if(data.result[j].seller){
 		  			seller = data.result[j].seller;
-		  		}
-		  		seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + seller + "</a></td>";
+		  		
+			  		if(data.result[j].link === "#"){
+			  			seller_html = "<td>" + seller + "</td>";
+			  		}else{
+			  			seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + seller + "</a></td>";
+			  		}
+			  	}else{
+			  		seller_html = "<td>Not available</td>"
+			  	}
+		  		
 		  	}
 		  	var price = "<td>" + data.result[j].price + " " + data.result[j].currency + "</td>";
 		  	if(data.result[j].renting_price_period){
@@ -372,6 +383,7 @@ function back_func(){
 	input_label.delay(500).fadeIn();
 	btn_back2.fadeOut();
 	btn.delay(500).fadeIn();
+	$('.awesomplete').fadeIn();
 	setTimeout(function(){
 	  input_field.focus();
 	},600);
