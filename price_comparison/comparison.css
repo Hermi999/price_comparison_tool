@@ -36,16 +36,9 @@ td a:hover{
 
 #headline_wrapper{
 	text-align: center;
-    margin-top: 10%;
-    margin-left: 5%;
-    width: 90%;
-}
-
-#myinput{
-    font-size: 1.2em;
-    padding: 5px 15px;
-    font-weight: bold;
-    width: 100%;
+  margin-top: 10%;
+  margin-left: 5%;
+  width: 90%;
 }
 
 #getPrices{
@@ -58,7 +51,26 @@ td a:hover{
 	box-shadow: 0 0 10px white;
 	display: none;
 }
-
+#more_input_wrapper{
+  display: none;
+}
+#show_more_input{
+  background-color: #F44336;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  border-radius: 15px;
+  margin: 5px;
+  margin-left: 50%;
+  color: white;
+  font-weight: bold;
+  padding-top: 0px;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+#show_more_input:hover{
+  box-shadow: 0 0 5px white;
+}
 .awesomplete{
 	width: 100%;
 	box-shadow: 0 0 25px black; 
@@ -68,7 +80,13 @@ td a:hover{
 	max-height: 350px;
 	overflow-y: scroll;
 }
-
+.awesomplete2{
+  font-size: 1.2em;
+  padding: 5px 15px;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 5px;
+}
 #input_wrapper{
     width: 40%;
     margin-left: 30%;
@@ -242,7 +260,7 @@ footer a:hover {
   text-align: center;
   margin-bottom: 20px;
   text-align: center;
-  font-size: 1.4em;
+  font-size: 1.2em;
   color: #03A9F4;
   font-weight: bold;
   text-shadow: 0 0 1px white;

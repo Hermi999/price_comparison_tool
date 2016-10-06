@@ -3,9 +3,14 @@ var red = "rgb(236, 143, 136)";
 var input_wrapper = $('#input_wrapper');
 var get_more_results = $("#get_more_results_wrapper");
 var input_field = $("#myinput");
+var input_field2 = $("#myinput2");
+var input_field3 = $("#myinput3");
+var input_field4 = $("#myinput4");
 var input_email = $("#emailAddr");
 var input_label = $("#input_label");
 var input_label2 = $("#input_label2");
+var input_label3 = $("#input_label3");
+var input_label4 = $("#input_label4");
 var results = $("#results");
 var btn = $("#getPrices");
 var btn2 = $("#submitRequest");
@@ -15,11 +20,18 @@ var success_message = $("#success_message");
 var new_request = $("#new_request");
 var terms = $("#terms");
 var old_input = "";
-var new_list = [];
+var old_input2 = "";
+var old_input3 = "";
+var old_input4 = "";
 var accessCode = $('#accessCode');
 var accessCode2 = $('#accessCode2');
 var displaySeller = true;
 var serverURI = "https://tools.rentog.com/";
+var active_element_id = document.activeElement.id;
+var data_source;
+var awesome_temp;
+var old_input_temp;
+var input_field_temp;
 var text = [];
 
 function getServerURI(){
@@ -113,12 +125,13 @@ var cookie = function(){
 
 
 var inputReference = document.getElementById("myinput");
-var awesome = new Awesomplete(inputReference, {
-	minChars: 2,
-	maxItems: 200,
-	autoFirst: true,
-	list: device_arr
-});
+var inputReference2 = document.getElementById("myinput2");
+var inputReference3 = document.getElementById("myinput3");
+var inputReference4 = document.getElementById("myinput4");
+var awesome = new Awesomplete(inputReference, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr });
+var awesome2 = new Awesomplete(inputReference2, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr2 });
+var awesome3 = new Awesomplete(inputReference3, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr3 });
+var awesome4 = new Awesomplete(inputReference4, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr4 });
 
 function isEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -130,29 +143,76 @@ document.addEventListener('awesomplete-selectcomplete', input_field_change);
 input_field.keyup(function(){
 	input_field_change(true);	
 });
+input_field2.keyup(function(){
+	input_field_change(true);	
+});
+input_field3.keyup(function(){
+	input_field_change(true);	
+});
+input_field4.keyup(function(){
+	input_field_change(true);	
+});
 
-function input_field_change(none_awesomplete_event){
+function input_field_change(none_awesomplete_event, active_element_id){
+	active_element_id = active_element_id || document.activeElement.id;
+	data_source = device_arr;
+	awesome_temp = awesome;
+	old_input_temp = old_input;
+	input_field_temp = input_field;
+
+	if (active_element_id === "myinput2"){
+		data_source = device_arr2;
+		awesome_temp = awesome2;
+		old_input_temp = old_input2;
+		input_field_temp = input_field2;
+	}else if(active_element_id === "myinput3"){
+		data_source = device_arr3;
+		awesome_temp = awesome3;
+		old_input_temp = old_input3;
+		input_field_temp = input_field3;
+	}else if(active_element_id === "myinput4"){
+		data_source = device_arr4;
+		awesome_temp = awesome4;
+		old_input_temp = old_input4;
+		input_field_temp = input_field4;
+	}
+
+
 	awesomplete_event = none_awesomplete_event || false;
-	var old_input_length = old_input.length;
-	var new_input_length = input_field.val().length;
+	var old_input_length = old_input_temp.length;
+	var new_input_length = input_field_temp.val().length;
 
 	// if textfield value changed
-	if (old_input !== input_field.val()){
-		old_input = input_field.val();
+	if (old_input_temp !== input_field_temp.val()){
+		old_input_temp = input_field_temp.val();
 
 		// contact server if input is 1, 2 or 3 letters
-		if( none_awesomplete_event === true && ((input_field.val().length > 0 && input_field.val().length < 4) || (old_input_length+1 < new_input_length))){
+		if( none_awesomplete_event === true && ((input_field_temp.val().length > 0 && input_field_temp.val().length < 4) || (old_input_length+1 < new_input_length))){
 			var jqxhr = $.get( serverURI + "price_comparison_devices", 
 				{
-					"search_term": input_field.val()
+					"search_term": input_field_temp.val()
 				},
 				function(data) {
 				  console.log(data);
 
 				  // store response from server
-				  device_arr = data["devices"];
-				  awesome._list = data["devices"];
-				  awesome.evaluate();
+				  data_source = data["devices"];
+				  awesome_temp._list = data["devices"];
+				  awesome_temp.evaluate();
+
+				  if (active_element_id === "myinput2"){
+						device_arr2 = data_source;
+						awesome2 = awesome_temp;
+					}else if (active_element_id === "myinput3"){
+						device_arr3 = data_source;
+						awesome3 = awesome_temp;
+					}else if (active_element_id === "myinput4"){
+						device_arr4 = data_source;
+						awesome4 = awesome_temp;
+					}else{
+						device_arr = data_source;
+						awesome = awesome_temp;
+					}
 				})
 				  .done(function() {
 				    //console.log( "second success" );
@@ -168,32 +228,53 @@ function input_field_change(none_awesomplete_event){
 		// check if text in textfield matches a valid dataset
 		var BreakException = {};
 
-		if (input_field.val() !== ""){
+		if (input_field_temp.val() !== ""){
 			try{
 				// disable button
-				btn.prop('disabled', true);
+				if(input_field.css("backgroundColor") !== green && input_field2.css("backgroundColor") !== green && 
+					 input_field3.css("backgroundColor") !== green && input_field4.css("backgroundColor") !== green){
+					btn.prop('disabled', true);
+				}
 
-				device_arr.forEach(function(el){
-					if(el.trim() == input_field.val().trim()){
+				data_source.forEach(function(el){
+					if(el.trim() == input_field_temp.val().trim()){
 						throw BreakException;
 					}
 				});
-				input_field.css("backgroundColor", red);
+				input_field_temp.css("backgroundColor", red);
 				$("#help_wrapper").css("display", "block");
-				awesome.evaluate();
+				awesome_temp.evaluate();
 			}catch(e){
 				if (e !== BreakException) throw e;
 				// enable button and mark input green		
 				btn.prop('disabled', false);
 				btn.css("display", "block");
-				input_field.css("backgroundColor", green);
+				input_field_temp.css("backgroundColor", green);
 				$("#help_wrapper").css("display", "none");
 			}
 		}else{
-			btn.prop('disabled', true);		
-			input_field.css("backgroundColor", "white");
-			awesome.evaluate();
+			input_field_temp.css("backgroundColor", "white");
+			awesome_temp.evaluate();
+
+			if(input_field.css("backgroundColor") !== green && input_field2.css("backgroundColor") !== green && 
+				 input_field3.css("backgroundColor") !== green && input_field4.css("backgroundColor") !== green){
+				btn.prop('disabled', true);
+			}
 		}
+	}
+
+	if (active_element_id === "myinput2"){
+		old_input2 = old_input_temp;
+		input_field2 = input_field_temp;
+	}else if (active_element_id === "myinput3"){
+		old_input3 = old_input_temp;
+		input_field3 = input_field_temp;
+	}else if (active_element_id === "myinput4"){
+		old_input4 = old_input_temp;
+		input_field4 = input_field_temp;
+	}else{
+		old_input = old_input_temp;
+		input_field = input_field_temp;
 	}
 }
 
@@ -201,7 +282,14 @@ function input_field_change(none_awesomplete_event){
 btn.click(function(){
 	$('#result_table_body').empty();
 	input_field.fadeOut();
+	input_field2.fadeOut();
+	input_field3.fadeOut();
+	input_field4.fadeOut();
 	input_label.fadeOut();
+	input_label2.fadeOut();
+	input_label3.fadeOut();
+	input_label4.fadeOut();
+	$('#show_more_input').fadeOut();
 	$('.awesomplete').fadeOut();
 	btn.fadeOut();
 	input_wrapper.animate({
@@ -226,82 +314,86 @@ btn.click(function(){
 		{
 			"price_comparison_params": {
 				"action_type":"device_chosen", 
-				"device_name": input_field.val(), 
+				"device_name": [input_field.val(), input_field2.val(), input_field3.val(), input_field4.val()], 
 				"sessionId":readCookie("price_comparison_session_id"),
 			}
 		},
 		function(data) {
 			console.log(data);
-		  var amountOfDevices = data.result.length;
+		  var amountOfDevices = 0;
 
-		  $('#count_results').text(text[0] + amountOfDevices + text[1]);
+		  $.each(data.result, function(index, dev_type_data){
+			  	var type_amountOfDevices = dev_type_data.length;
+			  	amountOfDevices = amountOfDevices + type_amountOfDevices;
 
-		  for(var j=0; j<amountOfDevices; j++){
-		  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
-		  	if(displaySeller){
-		  		var seller = "Link"
-		  		if(data.result[j].seller){
-		  			seller = data.result[j].seller;
-		  		
-			  		if(data.result[j].link === "#"){
-			  			seller_html = "<td>" + seller + "</td>";
-			  		}else{
-			  			seller_html = "<td><a class='seller_link' href='" + data.result[j].link + "' target='_blank'>" + seller + "</a></td>";
-			  		}
-			  	}else{
-			  		seller_html = "<td>Not available</td>"
-			  	}
-		  		
-		  	}
-		  	var price = "<td>" + data.result[j].price + " " + data.result[j].currency + "</td>";
-		  	if(data.result[j].renting_price_period){
-		  		price = "<td>" + data.result[j].price + " " + data.result[j].currency + " / " + data.result[j].renting_price_period + "</td>";
-		  	}
-		  	$('#result_table_body').append($("<tr class='device' />")
-		  							 						.append("<td>" + data.result[j].model + "</td>")
-		  							 						.append("<td>" + data.result[j].manufacturer + "</td>")
-		  							 						.append(price)
-		  							 						.append("<td>" + data.result[j].country + "</td>")
-		  							 						.append("<td>" + data.result[j].condition + "</td>")
-		  							 						.append(seller_html)
-		  							 					 );
-		  }
+				  for(var j=0; j<type_amountOfDevices; j++){
+				  	var seller_html = "<td class='seller_field'>" + text[2] + "</td>";
+				  	if(displaySeller){
+				  		var seller = "Link"
+				  		if(dev_type_data[j].seller){
+				  			seller = dev_type_data[j].seller;
+				  		
+					  		if(dev_type_data[j].link === "#"){
+					  			seller_html = "<td>" + seller + "</td>";
+					  		}else{
+					  			seller_html = "<td><a class='seller_link' href='" + dev_type_data[j].link + "' target='_blank'>" + seller + "</a></td>";
+					  		}
+					  	}else{
+					  		seller_html = "<td>Not available</td>"
+					  	}
+				  		
+				  	}
+				  	var price = "<td>" + dev_type_data[j].price + " " + dev_type_data[j].currency + "</td>";
+				  	if(dev_type_data[j].renting_price_period){
+				  		price = "<td>" + dev_type_data[j].price + " " + dev_type_data[j].currency + " / " + dev_type_data[j].renting_price_period + "</td>";
+				  	}
+				  	$('#result_table_body').append($("<tr class='device' />")
+				  							 						.append("<td>" + dev_type_data[j].model + "</td>")
+				  							 						.append("<td>" + dev_type_data[j].manufacturer + "</td>")
+				  							 						.append(price)
+				  							 						.append("<td>" + dev_type_data[j].country + "</td>")
+				  							 						.append("<td>" + dev_type_data[j].condition + "</td>")
+				  							 						.append(seller_html)
+				  							 					 );
+				  }
 
-		  $('.seller_link').click(function(ev){
-				// send request to server
-				console.log(ev);
-				var jqxhr = $.post( serverURI + "price_comparison_events", 
-					{
-						"price_comparison_params": {
-							"action_type":"lead_generated", 
-							"email": readCookie("price_comparison_email"), 
-							"device_name": input_field.val(), 
-							"seller": ev.currentTarget.text,
-							"seller_link": ev.currentTarget.href,
-							"sessionId":readCookie("price_comparison_session_id"),
-						}
-					},
-					function(data) {
-						console.log(data);
-					})
-					  .done(function() {
-					  	//
-					  })
-					  .fail(function() {
-					    //console.log( "error" );
-					  })
-					  .always(function() {
-					});	
+				  $('.seller_link').click(function(ev){
+						// send request to server
+						console.log(ev);
+						var jqxhr = $.post( serverURI + "price_comparison_events", 
+							{
+								"price_comparison_params": {
+									"action_type":"lead_generated", 
+									"email": readCookie("price_comparison_email"), 
+									"device_name": input_field.val(), 
+									"seller": ev.currentTarget.text,
+									"seller_link": ev.currentTarget.href,
+									"sessionId":readCookie("price_comparison_session_id"),
+								}
+							},
+							function(data) {
+								console.log(data);
+							})
+						  .done(function() {
+						  	//
+						  })
+						  .fail(function() {
+						    //console.log( "error" );
+						  })
+						  .always(function() {
+							});	
+					});
 			});
+
+			$('#count_results').text(text[0] + amountOfDevices + text[1]);
 		})
-		  .done(function() {
-		    //console.log( "second success" );
-		  })
-		  .fail(function() {
-		    //console.log( "error" );
-		  })
-		  .always(function() {
-		    //console.log( "finished" );
+	  .done(function() {
+	    //console.log( "second success" );
+	  })
+	  .fail(function() {
+	    //console.log( "error" );
+	  })
+	  .always(function() {
 		});
 });
 
@@ -380,7 +472,14 @@ function back_func(){
 		width: "40%"
 	}, 400);
 	input_field.delay(500).fadeIn();
+	input_field2.delay(500).fadeIn();
+	input_field3.delay(500).fadeIn();
+	input_field4.delay(500).fadeIn();
 	input_label.delay(500).fadeIn();
+	input_label2.delay(500).fadeIn();
+	input_label3.delay(500).fadeIn();
+	input_label4.delay(500).fadeIn();
+	$('#show_more_input').delay(500).fadeIn();
 	btn_back2.fadeOut();
 	btn.delay(500).fadeIn();
 	$('.awesomplete').fadeIn();
@@ -460,6 +559,22 @@ function accessCodeCheckboxHandler(){
 
 $('#exit_x').click(function(){
 	$('#enter_access_code_window').fadeOut();
+});
+
+$('#show_more_input').click(function(){
+	$('#more_input_wrapper').toggle();
+	if($('#show_more_input').text() === "+"){
+		$('#show_more_input').text("-");
+	}else{
+		$('#show_more_input').text("+");
+		input_field2.val("");
+		input_field3.val("");
+		input_field4.val("");
+		input_field_change(true, "myinput2");
+		input_field_change(true, "myinput3");
+		input_field_change(true, "myinput4");
+		input_field_change(true, "myinput");
+	}
 });
 
 // Focus text field
