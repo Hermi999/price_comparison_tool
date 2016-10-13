@@ -33,6 +33,10 @@ var awesome_temp;
 var old_input_temp;
 var input_field_temp;
 var text = [];
+var teaser_text_electronic = "";
+var teaser_text_whitelabel = "";
+var feedback_type = "";
+var feedback_page = 1;
 
 function getServerURI(){
 	if(window.location.href.includes("home")){
@@ -44,12 +48,23 @@ function getServerURI(){
 		text[0] = "Wir haben ";
 		text[1] = " Gerät(e) in unserer Datenbank gefunden.";
 		text[2] = "Zugriffscode eingeben ...";
-		teaser_text_electronic = "Wir haben die Preise von Marken wie Megger, Omicron und FLIR."
-	}else{
+		teaser_text_electronic = "Wir haben die Preise von Marken wie Megger, Omicron und FLIR.";
+		teaser_text_whitelabel = "Ihr Design, Ihr Werbeslogan, Ihr Logo.";
+	}
+	else if(window.location.href.includes("/ru") || window.location.href.includes("_ru")){
+		text[0] = "Мы нашли ";
+		text[1] = " устройств по Вашему запросу.";
+    text[2] = "Введите код доступа ...";
+    teaser_text_electronic = "У нас есть цены от известных брендов, например Megger, Omicron и FLIR."
+    teaser_text_whitelabel = "Ваш дизайн, Ваш слоган, Ваш логотип.";
+
+	}
+	else{
 		text[0] = "We found ";
 		text[1] = " device(s) for your request.";
 		text[2] = "Enter access code ...";
 		teaser_text_electronic = "We have the prices from your favourite brands like Megger, Omicron and FLIR."
+		teaser_text_whitelabel = "Your design, your slogan, your logo.";
 	}
 }
 getServerURI();
@@ -105,13 +120,21 @@ function makeid(){
     return text;
 }
 
-function changeBackgroundImage(){
+function changeUserInterface(){
 	if(getUrlParameter("energy")){
 		$('#page').css("backgroundImage", 'url("/price_comparison/bg3.jpg")');
-		$('#teaser').text(teaser_text_electronic);
+		$('#teaser_wrapper').html(teaser_text_electronic);
+
+	}else if (getUrlParameter("whitelabel")){
+		$('#page').css({"backgroundImage": 'none', "backgroundColor": "white"});
+		$('#teaser_wrapper').text(teaser_text_whitelabel);
+		$('h1, #change_language>a').css('color', 'black');
+		$('.awesomplete').css('boxShadow', 'none');
+		$('#results_data').css('backgroundColor', 'rgba(244, 67, 54, 0.69)');
+		$('#input_wrapper').css('backgroundColor', 'rgba(167, 167, 167, 0.46)');
+		$('#input_label').css('color', '#6f6f6f');
 	}
 }
-changeBackgroundImage();
 
 
 var cookie = function(){
@@ -132,6 +155,8 @@ var awesome = new Awesomplete(inputReference, {minChars: 2, maxItems: 200, autoF
 var awesome2 = new Awesomplete(inputReference2, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr2 });
 var awesome3 = new Awesomplete(inputReference3, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr3 });
 var awesome4 = new Awesomplete(inputReference4, {minChars: 2, maxItems: 200, autoFirst: true, list: device_arr4 });
+
+changeUserInterface();
 
 function isEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -289,6 +314,7 @@ btn.click(function(){
 	input_label2.fadeOut();
 	input_label3.fadeOut();
 	input_label4.fadeOut();
+	$('#beta_version_desc').fadeOut();
 	$('#show_more_input').fadeOut();
 	$('.awesomplete').fadeOut();
 	btn.fadeOut();
@@ -359,7 +385,6 @@ btn.click(function(){
 
 				  $('.seller_link').click(function(ev){
 						// send request to server
-						console.log(ev);
 						var jqxhr = $.post( serverURI + "price_comparison_events", 
 							{
 								"price_comparison_params": {
@@ -467,7 +492,7 @@ btn_back2.click(back_func);
 function back_func(){
 	results.fadeOut();
 	get_more_results.fadeOut();
-	input_wrapper.delay(250).animate({
+	input_wrapper.delay(350).animate({
 		marginLeft: "30%",
 		width: "40%"
 	}, 400);
@@ -479,6 +504,7 @@ function back_func(){
 	input_label2.delay(500).fadeIn();
 	input_label3.delay(500).fadeIn();
 	input_label4.delay(500).fadeIn();
+	$('#beta_version_desc').delay(500).fadeIn();
 	$('#show_more_input').delay(500).fadeIn();
 	btn_back2.fadeOut();
 	btn.delay(500).fadeIn();
@@ -580,3 +606,79 @@ $('#show_more_input').click(function(){
 // Focus text field
 input_field.val("");
 input_field.focus();
+
+
+// Feedback
+if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	if (!readCookie("feedback_already_shown")){
+		$("#feedback_wrapper").delay(15000).fadeIn();
+		createCookie("feedback_already_shown", true, 999);
+	}
+}
+
+$('#i_like').click(function(){
+	$('#feedback_first_page').fadeOut(240);
+	$('#feedback_second_page_a').delay(250).fadeIn();
+	feedback_type = "positive";
+	feedback_page = feedback_page + 1;
+});
+$('#i_dont_like').click(function(){
+	$('#feedback_first_page').fadeOut(240);
+	$('#feedback_second_page_b').delay(250).fadeIn();
+	feedback_type = "negative";
+	feedback_page = feedback_page + 1;
+});
+
+$('.feedback_next').click(function(){
+	$('#feedback_second_page_a').fadeOut(240);
+	$('#feedback_second_page_b').fadeOut(240);
+	$('#feedback_third_page').delay(250).fadeIn();
+	feedback_page = feedback_page + 1;
+});
+
+$('#feedback_submit').click(function(){
+	feedback_submit();	
+
+	$('#feedback_third_page').fadeOut(240);
+	$('#feedback_fourth_page').delay(250).fadeIn();	
+});
+
+$('.feedback_close').click(function(){
+	$('#feedback_wrapper').fadeOut();
+
+	if (feedback_page === 3){
+		feedback_submit();
+	}
+});
+
+$('#show_feedback').click(function(){
+	$('.not_first_page').hide();
+	$('#feedback_first_page').show();	
+	$("#feedback_wrapper").stop().fadeIn();
+});
+
+function feedback_submit(){
+	var jqxhr = $.post( serverURI + "price_comparison_events", 
+					{
+						"price_comparison_params": {
+							"action_type":"feedback", 
+							"detail_1": feedback_type,									// Feedback type
+							"detail_2": $('#feedback_why_text_a').val() + $('#feedback_why_text_b').val(),	// Feedback text
+							"detail_3": $('#feedback_job').val(),
+							"detail_4": $('#feedback_company').val(),
+							"detail_5": $('#feedback_email').val(),
+							"sessionId":readCookie("price_comparison_session_id"),
+						}
+					},
+					function(data) {
+						
+					})
+				  .done(function() {
+				  	//
+				  })
+				  .fail(function() {
+				    //console.log( "error" );
+				  })
+				  .always(function() {
+					});
+}

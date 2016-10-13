@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Price comparison for Test and Measurement devices</title>
+	<title>Price comparison tool</title>
+        
+  <meta name="keywords" content="test devices, measurement equipment, used equipment, omicron, rohde und schwarz, anritsu, megger, doble, tektronix" />
+	<meta name="description" content="Price comparison for test and measurement devices and equipment."/>
+	<meta name="robots" content="noodp"/>
+	<link rel="canonical" href="https://rentog.com/price-comparison/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Home - Rentog - Test and Measurement devices" />
+	<meta property="og:description" content="Price comparison for test and measurement devices and equipment." />
+	<meta property="og:url" content="https://rentog.com/price-comparison/" />
+	<meta property="og:site_name" content="Rentog - Test and Measurement devices" />
+  <meta property="og:image" content="https://rentog.com/price_comparison/bg_large.jpg"/>
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:description" content="Price comparison for test and measurement devices and equipment." />
+	<meta name="twitter:title" content="Home - Rentog - Test and Measurement devices" />
 
 	<link rel="stylesheet" href="price_comparison/awesomplete.css" /> 
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="price_comparison/comparison.css">
 
-	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="msapplication-TileImage" content="https://rentog.com/wp-content/uploads/2016/01/logo_bgWhite_colorBlack_x144.png">
+  <link rel="shortcut icon" href="https//rentog.com/wp-content/uploads/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" href="https://rentog.com/wp-content/uploads/2016/01/logo_bgWhite_colorBlack_x152.png">
+
+	<script>
+  		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63315141-4', 'auto');
+  		ga('send', 'pageview');
+	</script>
+
+  <!-- start Mixpanel --><script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+mixpanel.init("ebf98f9dc0a8700c325ee1ed86399fc6");</script><!-- end Mixpanel -->
+        
 </head>
 
 <body id="page" class="page_electronic">
@@ -19,9 +52,12 @@
 	<div id="beta">Beta Version</div>
 
 	<div id="headline_wrapper">
-		<h1>Price comparison tool for test and measurement devices</h1>
-		<h3 id="teaser">We have already collected 200.000 prices for more than 100.000 different devices.</h3>
-		<h4 id="short_desc">Simply enter the device or model you are looking for to search through our database.</h4>
+		<h1>Find and compare prices of Test- and Measurement devices.</h1>
+		<div id="teaser_wrapper">
+			<p class="teaser">Get a price indication for new and used test and measurement devices.</p>
+			<p class="teaser">Find out where you can buy or rent test and measurement devices.</p>
+			<a id="main_explanation" href="https://rentog.com/blog/why-price-comparision/">Read more about the purpose of this tool.</a>
+		</div>
 	</div>
 	<div id="input_wrapper">
 
@@ -34,6 +70,9 @@
 			<input id="myinput3" placeholder="3rd device..." class="awesomplete2" />
 			<input id="myinput4" placeholder="4th device..." class="awesomplete2" />
 		</div>
+
+		<div id="beta_version_desc">This is a Beta-Version, which means that only 10% of the available data is gathered and imported - we constantly increase the number of offers. New features, like a technical comparison based on real user experience, are planned.</div>
+
 		<div id="help_wrapper">
 			<a href="https://rentog.com/blog/compare-prices-test-and-measurement-equipment/"><b>Need help?</b> Click here...</a>
 		</div>
@@ -64,9 +103,10 @@
 
 		<button id="back2" class="btn btn-default">&lt;</button>
 
+		<!--
 		<div id="get_more_results_wrapper">
 			<div id="get_more_results">
-				<!--
+				
 				<div id="input_label2">Enter your email address to show the suppliers. <span style="color: rgba(255, 255, 255, 0.5);"><br>Alternatively enter your access code.</span></div>
 				<input id="emailAddr" placeholder="jon@doe.com" type="email" name="email">
 				<p id="or">OR</p>
@@ -74,12 +114,9 @@
 				<div id="terms"><label><input type="checkbox"/> I agree to the <a href="https://rentog.com/terms" tabindex="-1" style="color: #ff9800;" target="_blank">terms</a></label></div>
 				<button id="back" class="btn btn-default" tabindex="-1">&lt;</button>
 				<button id="submitRequest" class="btn btn-danger" type="submit" disabled="disabled">Show suppliers</button>
-				-->
 			</div>
 		</div>
 		
-
-		<!-- POPUP PAGE -->
 		<div id="enter_access_code_window">
 			<p id="exit_x">x</p>
 			<div id="access_code_input_window">
@@ -88,9 +125,13 @@
 				<button id="validate_access_code" class="btn btn-default">Submit</button>
 			</div>
 		</div>
+		-->
 	</div>
 
 	<footer>
+		<div id="contact_us">
+			<a href="#" id="show_feedback">Feedback</a> | <a href="https://rentog.com/contact/" target="_blank">Contact us</a>
+		</div>
 		<div id="cookie_notification">
 			<p>We use cookies to improve the user experience. <a href="https://rentog.com/privacy" target="_blank">Read more...</a></p>
 		</div>
@@ -98,6 +139,90 @@
 			<a href="https://rentog.com"><p><span style="vertical-align: bottom; padding-right: 5px;">This tool is powered by </span> <img src="https://rentog.com/wp-content/uploads/2016/01/Logo_transparent_white.png" height="30px"/></p></a>
 		</div>
 	</footer>
+
+
+	<div id=feedback_wrapper>
+		<div id="feedback_close" class="feedback_close">x</div>
+		<div id="feedback_first_page">
+			<p id="do_you_like">Do you like the this website?</p>
+			<button class="btn-success" id="i_like">Yes</button>
+			<button class="btn-danger" id="i_dont_like">No</button>
+		</div>
+		<div class="not_first_page" id="feedback_second_page_a">
+			<p id="feedback_why_yes">Please tell us why.</p>
+			<textarea id="feedback_why_text_a" class="feedback_why_text" placeholder="Please enter the reason here"></textarea>
+			<button class="btn-default feedback_next">Next</button>
+		</div>
+		<div class="not_first_page" id="feedback_second_page_b">
+			<p id="feedback_why_no">Please tell us why not.</p>
+			<textarea id="feedback_why_text_b" class="feedback_why_text" placeholder="Please enter the reason here"></textarea>
+			<button class="btn-default feedback_next">Next</button>
+		</div>
+		<div class="not_first_page" id="feedback_third_page">
+			<p>Please provide further details about you (optional).</p>
+			<label>
+				<span class="feedback_label">Job</span>
+				<input id="feedback_job" class="feedback_input_details" type="text" name="Job" placeholder="Testengineer">
+			</label>
+			<label>
+				<span class="feedback_label">Company</span>
+				<input id="feedback_company" class="feedback_input_details" type="text" name="Company" placeholder="Bosch Engineering Group">
+			</label>
+			<label>
+				<span class="feedback_label">Email</span>
+				<input id="feedback_email" class="feedback_input_details" type="text" name="Email" placeholder="jon.doe@bosch.com">
+			</label>
+			<button class="btn-success" id="feedback_submit">Submit</button>
+		</div>
+		<div class="not_first_page" id="feedback_fourth_page">
+			<p id="feedback_thank_you">Thank's for your honest opinion.<br><br>If you like this tool then please share it with your colleagues/friends.</p>
+			
+
+			<div id="share-buttons">
+		    <!-- Email -->
+		    <a href="mailto:?Subject=Rentog Price comparison tool&Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://rentog.com/price-comparison">
+		        <img src="price_comparison/email.png" alt="Email" />
+		    </a>
+		 
+		    <!-- Facebook -->
+		    <a href="http://www.facebook.com/sharer.php?u=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/facebook.png" alt="Facebook" />
+		    </a>
+		    
+		    <!-- Google+ -->
+		    <a href="https://plus.google.com/share?url=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/google.png" alt="Google" />
+		    </a>
+		    
+		    <!-- LinkedIn -->
+		    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/linkedin.png" alt="LinkedIn" />
+		    </a>
+		    
+		    <!-- Reddit -->
+		    <a href="http://reddit.com/submit?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/reddit.png" alt="Reddit" />
+		    </a>
+		    
+		    <!-- StumbleUpon-->
+		    <a href="http://www.stumbleupon.com/submit?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/stumbleupon.png" alt="StumbleUpon" />
+		    </a>
+		    
+		    <!-- Tumblr-->
+		    <a href="http://www.tumblr.com/share/link?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/tumblr.png" alt="Tumblr" />
+		    </a>
+		     
+		    <!-- Twitter -->
+		    <a href="https://twitter.com/share?url=https://rentog.com/price-comparison&text=My%20favourite%20Test%20And%20Measurement%20Price%20Comparison%20Tool&hashtags=simplesharebuttons" target="_blank">
+		        <img src="price_comparison/twitter.png" alt="Twitter" />
+		    </a>
+
+			</div>
+			<a href="#" id="feedback_close_link" class="feedback_close">Close this dialog.</a>
+		</div>
+	</div>
 
 
 	<script src="price_comparison/awesomplete.min.js"></script>

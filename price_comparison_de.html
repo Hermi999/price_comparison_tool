@@ -20,8 +20,11 @@
 
 	<div id="headline_wrapper">
 		<h1>Preisvergleichs-Tool für Test- und Messgeräte</h1>
-		<h3 id="teaser">Wir haben bereits 200.000 Preise für mehr als 100.000 verschiedene Test- und Messgerät verfügbar.</h3>
-		<h4 id="short_desc">Geben Sie einfach gewünschten Hersteller oder Model an um unsere Datenbank zu durchsuchen.</h4>
+		<div id="teaser_wrapper">
+			<p class="teaser">Preisindikationen für neue und gebrauchte Test- und Messgeräte.</p>
+			<p class="teaser">Finden Sie heraus wo sie Test- und Messgeräte günstig kaufen und mieten können.</p>
+			<a id="main_explanation" href="https://rentog.com/blog/de/why-price-comparision/">Lesen Sie mehr über den Zweck dieses Tools.</a>
+		</div>
 	</div>
 	<div id="input_wrapper">
 
@@ -34,9 +37,14 @@
 			<input id="myinput3" placeholder="Drittes Gerät..." class="awesomplete2" />
 			<input id="myinput4" placeholder="Viertes Gerät..." class="awesomplete2" />
 		</div>
+		
+		<div id="beta_version_desc">Das Tool befindet sich im Beta-Stadium. Aktuell haben wir nur ungefährt 10% von allen im Internet verfügbaren Daten aufbereitet und zur Verfügung gestellt - wir importieren aber täglich mehr und mehr Geräte. Darüberhinaus sind weitere Featues, wie zum Beispiel ein Vergleich der Geräte basierend auf technischen Details, geplant.</div>
+
 		<div id="help_wrapper">
 			<a href="https://rentog.com/de/blog/compare-prices-test-and-measurement-equipment/"><b>Sie benötigen Hilfe?</b> Klicken Sie hier...</a>
 		</div>
+
+
 		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Zeige Preise</button>
 
 
@@ -89,6 +97,9 @@
 	</div>
 
 	<footer>
+		<div id="contact_us">
+			<a href="#" id="show_feedback">Feedback</a> | <a href="https://rentog.com/de/contact/" target="_blank">Kontakt</a>
+		</div>
 		<div id="cookie_notification">
 			<p>Wir benutzen Cookies um die Usability zu verbessern. <a href="https://rentog.com/de/privacy" target="_blank">Lesen Sie mehr...</a></p>
 		</div>
@@ -96,6 +107,90 @@
 			<a href="https://rentog.com/de"><p><span style="vertical-align: bottom; padding-right: 5px;">Diese Tool wird bereitgestellt von </span> <img src="https://rentog.com/wp-content/uploads/2016/01/Logo_transparent_white.png" height="30px"/></p></a>
 		</div>
 	</footer>
+
+
+	<div id=feedback_wrapper>
+		<div id="feedback_close" class="feedback_close">x</div>
+		<div id="feedback_first_page">
+			<p id="do_you_like">Finden Sie diese Webseite hilfreich?</p>
+			<button class="btn-success" id="i_like">Ja</button>
+			<button class="btn-danger" id="i_dont_like">Nein</button>
+		</div>
+		<div class="not_first_page" id="feedback_second_page_a">
+			<p id="feedback_why_yes">Bitte sagen Sie uns warum.</p>
+			<textarea id="feedback_why_text_a" class="feedback_why_text" placeholder="Please enter the reason here"></textarea>
+			<button class="btn-default feedback_next">Weiter</button>
+		</div>
+		<div class="not_first_page" id="feedback_second_page_b">
+			<p id="feedback_why_no">Bitte sagen Sie uns warum.</p>
+			<textarea id="feedback_why_text_b" class="feedback_why_text" placeholder="Please enter the reason here"></textarea>
+			<button class="btn-default feedback_next">Weiter</button>
+		</div>
+		<div class="not_first_page" id="feedback_third_page">
+			<p>Bitte geben Sie weitere Daten zu Ihrer Person an (optional).</p>
+			<label>
+				<span class="feedback_label">Job</span>
+				<input id="feedback_job" class="feedback_input_details" type="text" name="Job" placeholder="Testengineer">
+			</label>
+			<label>
+				<span class="feedback_label">Firma</span>
+				<input id="feedback_company" class="feedback_input_details" type="text" name="Company" placeholder="Bosch Engineering Group">
+			</label>
+			<label>
+				<span class="feedback_label">Email</span>
+				<input id="feedback_email" class="feedback_input_details" type="text" name="Email" placeholder="jon.doe@bosch.com">
+			</label>
+			<button class="btn-success" id="feedback_submit">Absenden</button>
+		</div>
+		<div class="not_first_page" id="feedback_fourth_page">
+			<p id="feedback_thank_you">Vielen Dank für Ihre Feedback.</p>
+
+			<div id="share-buttons">
+		    <!-- Email -->
+		    <a href="mailto:?Subject=Rentog Preisvergleichstool&Body=Das%20tools%20ist%20vielleicht%20für%20dich%20interessant!%20 https://rentog.com/price-comparison">
+		        <img src="price_comparison/email.png" alt="Email" />
+		    </a>
+		 
+		    <!-- Facebook -->
+		    <a href="http://www.facebook.com/sharer.php?u=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/facebook.png" alt="Facebook" />
+		    </a>
+		    
+		    <!-- Google+ -->
+		    <a href="https://plus.google.com/share?url=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/google.png" alt="Google" />
+		    </a>
+		    
+		    <!-- LinkedIn -->
+		    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://rentog.com/price-comparison" target="_blank">
+		        <img src="price_comparison/linkedin.png" alt="LinkedIn" />
+		    </a>
+		    
+		    <!-- Reddit -->
+		    <a href="http://reddit.com/submit?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/reddit.png" alt="Reddit" />
+		    </a>
+		    
+		    <!-- StumbleUpon-->
+		    <a href="http://www.stumbleupon.com/submit?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/stumbleupon.png" alt="StumbleUpon" />
+		    </a>
+		    
+		    <!-- Tumblr-->
+		    <a href="http://www.tumblr.com/share/link?url=https://rentog.com/price-comparison&title=My favourite Test and Measurement Price Comparison Tool" target="_blank">
+		        <img src="price_comparison/tumblr.png" alt="Tumblr" />
+		    </a>
+		     
+		    <!-- Twitter -->
+		    <a href="https://twitter.com/share?url=https://rentog.com/price-comparison&text=My%20favourite%20Test%20And%20Measurement%20Price%20Comparison%20Tool&hashtags=simplesharebuttons" target="_blank">
+		        <img src="price_comparison/twitter.png" alt="Twitter" />
+		    </a>
+
+			</div>
+
+			<a href="#" id="feedback_close_link" class="feedback_close">Den Feedback-Dialog schließen.</a>
+		</div>
+	</div>
 
 
 	<script src="price_comparison/awesomplete.min.js"></script>
