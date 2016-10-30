@@ -19,12 +19,12 @@ var btn_back2 = $("#back2");
 var success_message = $("#success_message");
 var new_request = $("#new_request");
 var terms = $("#terms");
+var accessCode = $('#accessCode');
+var accessCode2 = $('#accessCode2');
 var old_input = "";
 var old_input2 = "";
 var old_input3 = "";
 var old_input4 = "";
-var accessCode = $('#accessCode');
-var accessCode2 = $('#accessCode2');
 var displaySeller = true;
 var serverURI = "https://tools.rentog.com/";
 var active_element_id = document.activeElement.id;
@@ -304,7 +304,7 @@ function input_field_change(none_awesomplete_event, active_element_id){
 }
 
 // Get prices button click
-btn.click(function(){
+btn.bind("click touchstart", function(){
 	$('#result_table_body').empty();
 	input_field.fadeOut();
 	input_field2.fadeOut();
@@ -335,6 +335,9 @@ btn.click(function(){
 		btn_back2.fadeOut();
 	}*/
 
+	mixpanel.register({"device_name": [input_field.val(), input_field2.val(), input_field3.val(), input_field4.val()], 
+										 "sessionId":readCookie("price_comparison_session_id"),});
+	mixpanel.track("Price_comparison: Get prices button clicked");
 
 	var jqxhr = $.post( serverURI + "price_comparison_events", 
 		{
@@ -383,7 +386,14 @@ btn.click(function(){
 				  							 					 );
 				  }
 
-				  $('.seller_link').click(function(ev){
+				  $('.seller_link').bind("click touchstart", function(ev){
+						mixpanel.register({"email": readCookie("price_comparison_email"), 
+															 "device_name": input_field.val(), 
+															 "seller": ev.currentTarget.text,
+															 "seller_link": ev.currentTarget.href,
+															 "sessionId":readCookie("price_comparison_session_id")});
+						mixpanel.track("Price Comparison: Leed generated");
+
 						// send request to server
 						var jqxhr = $.post( serverURI + "price_comparison_events", 
 							{
@@ -423,7 +433,7 @@ btn.click(function(){
 });
 
 // Send email button click
-btn2.click(function(){
+btn2.bind("click touchstart", function(){
 	if(accessCode.css("opacity") === "1"){
 		btn2_accesCode_handler();
 	}else{
@@ -472,7 +482,7 @@ function btn2_email_handler(){
 }
 
 // Submit Accesscode via popover
-$("#validate_access_code").click(function(){
+$("#validate_access_code").bind("click touchstart", function(){
 	if(accessCode2.val() === "134679"){
 		createCookie("price_comparison_accesscode", "valid", 999);
 		$('#enter_access_code_window').fadeOut();
@@ -515,7 +525,7 @@ function back_func(){
 }
 
 // New request button click
-new_request.click(function(){
+new_request.bind("click touchstart", function(){
 	new_request.fadeOut();
 	success_message.fadeOut();
 	input_field.delay(500).fadeIn();
@@ -583,11 +593,11 @@ function accessCodeCheckboxHandler(){
 	}
 }
 
-$('#exit_x').click(function(){
+$('#exit_x').bind("click touchstart", function(){
 	$('#enter_access_code_window').fadeOut();
 });
 
-$('#show_more_input').click(function(){
+$('#show_more_input').bind("click touchstart", function(){
 	$('#more_input_wrapper').toggle();
 	if($('#show_more_input').text() === "+"){
 		$('#show_more_input').text("-");
@@ -616,34 +626,34 @@ if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navig
 	}
 }
 
-$('#i_like').click(function(){
+$('#i_like').bind("click touchstart", function(){
 	$('#feedback_first_page').fadeOut(240);
 	$('#feedback_second_page_a').delay(250).fadeIn();
 	feedback_type = "positive";
 	feedback_page = feedback_page + 1;
 });
-$('#i_dont_like').click(function(){
+$('#i_dont_like').bind("click touchstart", function(){
 	$('#feedback_first_page').fadeOut(240);
 	$('#feedback_second_page_b').delay(250).fadeIn();
 	feedback_type = "negative";
 	feedback_page = feedback_page + 1;
 });
 
-$('.feedback_next').click(function(){
+$('.feedback_next').bind("click touchstart", function(){
 	$('#feedback_second_page_a').fadeOut(240);
 	$('#feedback_second_page_b').fadeOut(240);
 	$('#feedback_third_page').delay(250).fadeIn();
 	feedback_page = feedback_page + 1;
 });
 
-$('#feedback_submit').click(function(){
+$('#feedback_submit').bind("click touchstart", function(){
 	feedback_submit();	
 
 	$('#feedback_third_page').fadeOut(240);
 	$('#feedback_fourth_page').delay(250).fadeIn();	
 });
 
-$('.feedback_close').click(function(){
+$('.feedback_close').bind("click touchstart", function(){
 	$('#feedback_wrapper').fadeOut();
 
 	if (feedback_page === 3){
@@ -651,13 +661,21 @@ $('.feedback_close').click(function(){
 	}
 });
 
-$('#show_feedback').click(function(){
+$('#show_feedback').bind("click touchstart", function(){
 	$('.not_first_page').hide();
 	$('#feedback_first_page').show();	
 	$("#feedback_wrapper").stop().fadeIn();
 });
 
 function feedback_submit(){
+	mixpanel.register({"feedback_type": feedback_type,
+										 "feedback_why": $('#feedback_why_text_a').val() + $('#feedback_why_text_b').val(),	// Feedback text
+										 "feedback_job": $('#feedback_job').val(),
+										 "feedback_company": $('#feedback_company').val(),
+										 "feedback_email": $('#feedback_email').val(),
+										 "feedabck_sessionId":readCookie("price_comparison_session_id")});
+  mixpanel.track("Price Comparison: Feedback submitted");
+
 	var jqxhr = $.post( serverURI + "price_comparison_events", 
 					{
 						"price_comparison_params": {
@@ -682,3 +700,5 @@ function feedback_submit(){
 				  .always(function() {
 					});
 }
+
+mixpanel.track_links("#main_explanation", "Price comparison: Read more link clicked");
