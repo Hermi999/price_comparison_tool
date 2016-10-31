@@ -29,8 +29,12 @@
 	<div id="input_wrapper">
 
 		<!-- PAGE 1 -->
-		<div id="input_label">Tippen Sie einfach die ersten Buchstaben ihres Geräts ein</div>
-		<input id="myinput" placeholder="Hersteller oder Modell" class="awesomplete2" />
+		<div id="input_label">Suchen Sie nach Modell, Hersteller oder Kategorie</div>
+		<input id="myinput" placeholder="z.B.: Omicron CMC 356" class="awesomplete2" />
+		<div id="additional_options_wrapper">
+			<div class="checkbox"><label><input id="enable_device_preview" type="checkbox">Autovervollständigung</label></div>
+			<div class="checkbox"><label><input id="enable_exact_match" type="checkbox">Genaue Übereinstimmung</label></div>
+		</div>
 		<div id="show_more_input">+</div>
 		<div id="more_input_wrapper">
 			<input id="myinput2" placeholder="Zweites Gerät..." class="awesomplete2" />
@@ -38,14 +42,18 @@
 			<input id="myinput4" placeholder="Viertes Gerät..." class="awesomplete2" />
 		</div>
 		
-		<div id="beta_version_desc">Das Tool befindet sich im Beta-Stadium. Aktuell haben wir nur ungefährt 10% von allen im Internet verfügbaren Daten aufbereitet und zur Verfügung gestellt - wir importieren aber täglich mehr und mehr Geräte. Darüberhinaus sind weitere Featues, wie zum Beispiel ein Vergleich der Geräte basierend auf technischen Details, geplant.</div>
+		<!--<div id="beta_version_desc">Das Tool befindet sich im Beta-Stadium. Aktuell haben wir nur ungefährt 10% von allen im Internet verfügbaren Daten aufbereitet und zur Verfügung gestellt - wir importieren aber täglich mehr und mehr Geräte. Darüberhinaus sind weitere Featues, wie zum Beispiel ein Vergleich der Geräte basierend auf technischen Details, geplant.</div>-->
+
+		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Zeige Preise</button>
+
+		<div id="searchfield_errors">
+			<p class="searchfield_error" id="error_to_less_chars">Mindestens 3 Zeichen eingeben</p>
+			<p class="searchfield_error" id="error_to_less_chars">Bei Autovervollständigung: Es muss ein Vorschlag ausgewählt werden.</p>
+		</div>
 
 		<div id="help_wrapper">
 			<a href="https://rentog.com/de/blog/compare-prices-test-and-measurement-equipment/"><b>Sie benötigen Hilfe?</b> Klicken Sie hier...</a>
 		</div>
-
-
-		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Zeige Preise</button>
 
 
 		<!-- PAGE 2 -->
@@ -197,6 +205,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="price_comparison/devices.js"></script>
 	<script type="text/javascript" src="price_comparison/logic.js"></script>
+	<script type="text/javascript" src="price_comparison/spin.min.js"></script>
 	<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async></script>-->
 
 </body>

@@ -16,6 +16,13 @@ td a:hover{
   color: #decf5a;
 }
 
+.spinner{
+  display: none;
+}
+#additional_options_wrapper{
+  margin-top:1px;
+}
+
 #result_table_body tr{
   border-bottom: 1px dashed rgba(255, 255, 255, 0.28);
 }
@@ -50,6 +57,17 @@ td a:hover{
   width: 90%;
 }
 
+#searchfield_errors{
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+.searchfield_error{
+  color: #F44336;
+  text-shadow: 0 0 5px #6b0202;
+  font-weight: bold;
+}
+
 #getPrices{
 	width: 40%;
 	min-width: 200px;
@@ -58,7 +76,6 @@ td a:hover{
 	font-size: 1.3em;
 	height: 45px;
 	box-shadow: 0 0 10px white;
-	display: none;
 }
 #more_input_wrapper{
   display: none;
@@ -295,9 +312,13 @@ footer a:hover {
   text-shadow: 0 0 1px white;
 }
 #results_data{
+  position: relative;
   background-color: rgba(33, 150, 243, 0.4);
   padding: 10px;
   border-radius: 10px;
+  max-height: 300px;
+  min-height: 250px;
+  overflow-y: scroll;
 }
 #result_table{
   width: 100%;

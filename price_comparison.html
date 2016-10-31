@@ -62,8 +62,14 @@ mixpanel.init("ebf98f9dc0a8700c325ee1ed86399fc6");</script><!-- end Mixpanel -->
 	<div id="input_wrapper">
 
 		<!-- PAGE 1 -->
-		<div id="input_label">Start typing for choosing a measurement device</div>
-		<input id="myinput" placeholder="Manufacturer or model" class="awesomplete2" />
+		<div id="input_label">Search for device model, manufacturer or category</div>
+		<input id="myinput" placeholder="z.B.: Omicron CMC 356" class="awesomplete2" />
+
+		<div id="additional_options_wrapper">
+			<div class="checkbox"><label><input id="enable_device_preview" type="checkbox">Autocomplete</label></div>
+			<div class="checkbox"><label><input id="enable_exact_match" type="checkbox">Exact match</label></div>
+		</div>
+
 		<div id="show_more_input">+</div>
 		<div id="more_input_wrapper">
 			<input id="myinput2" placeholder="2nd device..." class="awesomplete2" />
@@ -71,12 +77,18 @@ mixpanel.init("ebf98f9dc0a8700c325ee1ed86399fc6");</script><!-- end Mixpanel -->
 			<input id="myinput4" placeholder="4th device..." class="awesomplete2" />
 		</div>
 
-		<div id="beta_version_desc">This is a Beta-Version, which means that only 10% of the available data is gathered and imported - we constantly increase the number of offers. New features, like a technical comparison based on real user experience, are planned.</div>
+		<!--<div id="beta_version_desc">This is a Beta-Version, which means that only 10% of the available data is gathered and imported - we constantly increase the number of offers. New features, like a technical comparison based on real user experience, are planned.</div>-->
+
+		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Get prices for device</button>
+
+		<div id="searchfield_errors">
+			<p class="searchfield_error" id="error_to_less_chars">Enter at least 3 characters</p>
+			<p class="searchfield_error" id="error_to_less_chars">Device Preview: Choose a suggestion.</p>
+		</div>
 
 		<div id="help_wrapper">
 			<a href="https://rentog.com/blog/compare-prices-test-and-measurement-equipment/"><b>Need help?</b> Click here...</a>
 		</div>
-		<button id="getPrices" class="btn btn-danger" type="submit" disabled="disabled">Get prices for device</button>
 
 
 		<!-- PAGE 2 -->
@@ -229,6 +241,7 @@ mixpanel.init("ebf98f9dc0a8700c325ee1ed86399fc6");</script><!-- end Mixpanel -->
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="price_comparison/devices.js"></script>
 	<script type="text/javascript" src="price_comparison/logic.js"></script>
+	<script type="text/javascript" src="price_comparison/spin.min.js"></script>
 	<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async></script>-->
 
 </body>
