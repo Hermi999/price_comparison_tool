@@ -433,6 +433,7 @@ input_field.focusout(function(){
 // Get prices button click
 btn.bind("click touchstart", function(){
 	$('#result_table_body').empty();
+	$('#teaser_wrapper').fadeOut();
 	input_field.fadeOut();
 	input_field2.fadeOut();
 	input_field3.fadeOut();
@@ -650,6 +651,7 @@ function back_func(){
 		marginLeft: "30%",
 		width: "40%"
 	}, 400);
+	$('#teaser_wrapper').delay(400).fadeIn();
 	input_field.delay(500).fadeIn();
 	input_field2.delay(500).fadeIn();
 	input_field3.delay(500).fadeIn();
@@ -893,7 +895,9 @@ $(document).ready(function(){
 	// show spinner
 	var target = document.getElementById('results_data')
 	var spinner = new Spinner(opts).spin(target);
-
+	var height = $(window).height() - $("footer").height() - $('#headline_wrapper').offset().top - $('#headline_wrapper').outerHeight()-250;
+	$('#results_data').css("max-height", height);
+	$('#results_data').css("height", height);
 	
 	enable_device_preview = readCookie("enable_device_preview")  === "true" ;
 	$("#enable_device_preview").prop("checked", enable_device_preview);
